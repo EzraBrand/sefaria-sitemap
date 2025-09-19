@@ -26,70 +26,6 @@
       8
     ]
   },
-  "Jerusalem_Talmud_Sanhedrin": {
-    "chapters": 11,
-    "halakhot_per_chapter": [
-      4,
-      6,
-      12,
-      9,
-      5,
-      10,
-      13,
-      9,
-      7,
-      8,
-      6
-    ]
-  },
-  "Jerusalem_Talmud_Sheviit": {
-    "chapters": 10,
-    "halakhot_per_chapter": [
-      6,
-      7,
-      7,
-      8,
-      4,
-      4,
-      2,
-      8,
-      6,
-      4
-    ]
-  },
-  "Jerusalem_Talmud_Moed_Katan": {
-    "chapters": 3,
-    "halakhot_per_chapter": [
-      10,
-      5,
-      9
-    ]
-  },
-  "Jerusalem_Talmud_Horayot": {
-    "chapters": 3,
-    "halakhot_per_chapter": [
-      8,
-      7,
-      5
-    ]
-  },
-  "Jerusalem_Talmud_Kiddushin": {
-    "chapters": 4,
-    "halakhot_per_chapter": [
-      9,
-      9,
-      13,
-      12
-    ]
-  },
-  "Jerusalem_Talmud_Bikkurim": {
-    "chapters": 3,
-    "halakhot_per_chapter": [
-      9,
-      6,
-      6
-    ]
-  },
   "Jerusalem_Talmud_Demai": {
     "chapters": 7,
     "halakhot_per_chapter": [
@@ -116,6 +52,21 @@
       6
     ]
   },
+  "Jerusalem_Talmud_Sheviit": {
+    "chapters": 10,
+    "halakhot_per_chapter": [
+      6,
+      7,
+      7,
+      8,
+      4,
+      4,
+      2,
+      8,
+      6,
+      4
+    ]
+  },
   "Jerusalem_Talmud_Terumot": {
     "chapters": 11,
     "halakhot_per_chapter": [
@@ -132,9 +83,15 @@
       5
     ]
   },
-  "Jerusalem_Talmud_Maaser": {
-    "chapters": 0,
-    "halakhot_per_chapter": []
+  "Jerusalem_Talmud_Maasrot": {
+    "chapters": 5,
+    "halakhot_per_chapter": [
+      5,
+      4,
+      4,
+      4,
+      3
+    ]
   },
   "Jerusalem_Talmud_Maaser_Sheni": {
     "chapters": 5,
@@ -144,6 +101,394 @@
       6,
       6,
       5
+    ]
+  },
+  "Jerusalem_Talmud_Hallah": {
+    "chapters": 4,
+    "halakhot_per_chapter": [
+      6,
+      3,
+      5,
+      5
+    ]
+  },
+  "Jerusalem_Talmud_Orlah": {
+    "chapters": 3,
+    "halakhot_per_chapter": [
+      5,
+      9,
+      7
+    ]
+  },
+  "Jerusalem_Talmud_Bikkurim": {
+    "chapters": 3,
+    "halakhot_per_chapter": [
+      9,
+      6,
+      6
+    ]
+  },
+  "Jerusalem_Talmud_Shabbat": {
+    "chapters": 24,
+    "halakhot_per_chapter": [
+      11,
+      7,
+      8,
+      3,
+      4,
+      9,
+      4,
+      7,
+      7,
+      6,
+      6,
+      6,
+      7,
+      4,
+      3,
+      9,
+      7,
+      3,
+      6,
+      5,
+      3,
+      6,
+      5,
+      5
+    ]
+  },
+  "Jerusalem_Talmud_Eruvin": {
+    "chapters": 10,
+    "halakhot_per_chapter": [
+      10,
+      8,
+      10,
+      10,
+      8,
+      10,
+      10,
+      9,
+      5,
+      14
+    ]
+  },
+  "Jerusalem_Talmud_Pesahim": {
+    "chapters": 10,
+    "halakhot_per_chapter": [
+      8,
+      7,
+      8,
+      9,
+      10,
+      6,
+      13,
+      8,
+      10,
+      7
+    ]
+  },
+  "Jerusalem_Talmud_Shekalim": {
+    "chapters": 8,
+    "halakhot_per_chapter": [
+      4,
+      5,
+      3,
+      5,
+      4,
+      4,
+      3,
+      4
+    ]
+  },
+  "Jerusalem_Talmud_Yoma": {
+    "chapters": 8,
+    "halakhot_per_chapter": [
+      8,
+      4,
+      9,
+      6,
+      7,
+      7,
+      3,
+      7
+    ]
+  },
+  "Jerusalem_Talmud_Sukkah": {
+    "chapters": 5,
+    "halakhot_per_chapter": [
+      12,
+      10,
+      12,
+      7,
+      8
+    ]
+  },
+  "Jerusalem_Talmud_Beitzah": {
+    "chapters": 5,
+    "halakhot_per_chapter": [
+      12,
+      10,
+      9,
+      7,
+      8
+    ]
+  },
+  "Jerusalem_Talmud_Rosh_Hashanah": {
+    "chapters": 4,
+    "halakhot_per_chapter": [
+      8,
+      8,
+      10,
+      10
+    ]
+  },
+  "Jerusalem_Talmud_Taanit": {
+    "chapters": 4,
+    "halakhot_per_chapter": [
+      8,
+      14,
+      11,
+      7
+    ]
+  },
+  "Jerusalem_Talmud_Megillah": {
+    "chapters": 4,
+    "halakhot_per_chapter": [
+      12,
+      7,
+      7,
+      12
+    ]
+  },
+  "Jerusalem_Talmud_Moed_Katan": {
+    "chapters": 3,
+    "halakhot_per_chapter": [
+      10,
+      5,
+      9
+    ]
+  },
+  "Jerusalem_Talmud_Chagigah": {
+    "chapters": 3,
+    "halakhot_per_chapter": [
+      8,
+      7,
+      8
+    ]
+  },
+  "Jerusalem_Talmud_Yevamot": {
+    "chapters": 16,
+    "halakhot_per_chapter": [
+      6,
+      12,
+      12,
+      16,
+      8,
+      6,
+      8,
+      6,
+      8,
+      8,
+      7,
+      6,
+      14,
+      7,
+      10,
+      9
+    ]
+  },
+  "Jerusalem_Talmud_Ketubot": {
+    "chapters": 13,
+    "halakhot_per_chapter": [
+      10,
+      10,
+      10,
+      4,
+      11,
+      7,
+      9,
+      11,
+      10,
+      6,
+      7,
+      5,
+      11
+    ]
+  },
+  "Jerusalem_Talmud_Nedarim": {
+    "chapters": 11,
+    "halakhot_per_chapter": [
+      4,
+      5,
+      9,
+      10,
+      6,
+      11,
+      11,
+      9,
+      9,
+      8,
+      12
+    ]
+  },
+  "Jerusalem_Talmud_Nazir": {
+    "chapters": 9,
+    "halakhot_per_chapter": [
+      5,
+      10,
+      7,
+      6,
+      4,
+      11,
+      4,
+      2,
+      6
+    ]
+  },
+  "Jerusalem_Talmud_Sotah": {
+    "chapters": 9,
+    "halakhot_per_chapter": [
+      10,
+      6,
+      8,
+      5,
+      6,
+      4,
+      8,
+      10,
+      16
+    ]
+  },
+  "Jerusalem_Talmud_Gittin": {
+    "chapters": 9,
+    "halakhot_per_chapter": [
+      5,
+      7,
+      8,
+      9,
+      10,
+      7,
+      8,
+      10,
+      11
+    ]
+  },
+  "Jerusalem_Talmud_Kiddushin": {
+    "chapters": 4,
+    "halakhot_per_chapter": [
+      9,
+      9,
+      13,
+      12
+    ]
+  },
+  "Jerusalem_Talmud_Bava_Kamma": {
+    "chapters": 10,
+    "halakhot_per_chapter": [
+      5,
+      8,
+      11,
+      9,
+      8,
+      8,
+      7,
+      8,
+      10,
+      11
+    ]
+  },
+  "Jerusalem_Talmud_Bava_Metzia": {
+    "chapters": 10,
+    "halakhot_per_chapter": [
+      8,
+      11,
+      9,
+      7,
+      8,
+      6,
+      7,
+      9,
+      13,
+      6
+    ]
+  },
+  "Jerusalem_Talmud_Bava_Batra": {
+    "chapters": 10,
+    "halakhot_per_chapter": [
+      5,
+      11,
+      11,
+      8,
+      5,
+      4,
+      4,
+      9,
+      9,
+      10
+    ]
+  },
+  "Jerusalem_Talmud_Sanhedrin": {
+    "chapters": 11,
+    "halakhot_per_chapter": [
+      4,
+      6,
+      12,
+      9,
+      5,
+      10,
+      13,
+      9,
+      7,
+      8,
+      6
+    ]
+  },
+  "Jerusalem_Talmud_Makkot": {
+    "chapters": 3,
+    "halakhot_per_chapter": [
+      8,
+      7,
+      13
+    ]
+  },
+  "Jerusalem_Talmud_Shevuot": {
+    "chapters": 8,
+    "halakhot_per_chapter": [
+      7,
+      5,
+      10,
+      10,
+      6,
+      8,
+      8,
+      4
+    ]
+  },
+  "Jerusalem_Talmud_Avodah_Zarah": {
+    "chapters": 5,
+    "halakhot_per_chapter": [
+      10,
+      9,
+      14,
+      12,
+      15
+    ]
+  },
+  "Jerusalem_Talmud_Horayot": {
+    "chapters": 3,
+    "halakhot_per_chapter": [
+      8,
+      7,
+      5
+    ]
+  },
+  "Jerusalem_Talmud_Niddah": {
+    "chapters": 4,
+    "halakhot_per_chapter": [
+      6,
+      7,
+      5,
+      7
     ]
   }
 }

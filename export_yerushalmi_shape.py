@@ -8,6 +8,8 @@ API_TEXTS = "https://www.sefaria.org/api/texts"
 PARENT = "Jerusalem_Talmud"
 OUTPUT = "yerushalmi_schema.json"
 SLEEP = 0.01
+MAX_CHAPTERS = 25
+MAX_HALAKHOT = 20
 
 
 def flatten_text(obj):
@@ -61,9 +63,14 @@ def discover_tractates():
                     tractates.append(f"Jerusalem_Talmud_{slug}")
     # As a last resort: try a hardcoded common list of tractate suffixes
     if not tractates:
+        # Expanded to include the full 39 tractates list (user-supplied)
+        # Note: corrected English transliterations for a handful of tractates
         common = [
-            'Berakhot','Peah','Sanhedrin','Sheviit','Moed_Katan','Horayot','Kiddushin',
-            'Bikkurim','Demai','Kilayim','Terumot','Maaser','Maaser_Sheni'
+            'Berakhot','Peah','Demai','Kilayim','Sheviit','Terumot','Maasrot','Maaser_Sheni','Hallah','Orlah','Bikkurim',
+            'Shabbat','Eruvin','Pesahim','Shekalim','Yoma','Sukkah','Beitzah','Rosh_Hashanah','Taanit','Megillah','Moed_Katan','Chagigah',
+            'Yevamot','Ketubot','Nedarim','Nazir','Sotah','Gittin','Kiddushin',
+            'Bava_Kamma','Bava_Metzia','Bava_Batra','Sanhedrin','Makkot','Shevuot','Avodah_Zarah','Horayot',
+            'Niddah'
         ]
         for s in common:
             tractates.append(f"Jerusalem_Talmud_{s}")
@@ -80,15 +87,18 @@ def get_chapter_halakhot(tractate):
 
     # If chapters is not present, try to detect by probing
     if not chapters:
-        # conservative upper bound
-        chapters = 50
+        # conservative upper bound (user-specified cap)
+        chapters = MAX_CHAPTERS
 
     halakhot_per_chapter = []
-    for ch in range(1, chapters + 1):
+    # stop_after_consecutive empties reduces wasted probes when many chapter numbers don't exist
+    stop_after_consecutive = 3
+    consecutive_empty = 0
+    for ch in range(1, min(chapters, MAX_CHAPTERS) + 1):
         ha_count = 0
         # if we have a max_halakhot, use it as upper bound; otherwise use 200
-        upper = max_halakhot or 200
-        for ha in range(1, upper + 1):
+        upper = max_halakhot or MAX_HALAKHOT
+        for ha in range(1, min(upper, MAX_HALAKHOT) + 1):
             ref = f"{tractate}.{ch}.{ha}"
             try:
                 data = fetch_json(f"{API_TEXTS}/{ref}?lang=he", timeout=10)
@@ -104,6 +114,13 @@ def get_chapter_halakhot(tractate):
             except Exception:
                 break
             time.sleep(SLEEP)
+        if ha_count == 0:
+            consecutive_empty += 1
+        else:
+            consecutive_empty = 0
+        # if we've hit several consecutive empty chapters, assume further chapters don't exist
+        if consecutive_empty >= stop_after_consecutive:
+            break
         # if ha_count == 0 and we used a guessed chapters cap, it might mean chapter doesn't exist
         halakhot_per_chapter.append(ha_count)
     # Trim trailing zero chapters (if we guessed too many)
