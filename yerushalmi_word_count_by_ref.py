@@ -2,6 +2,10 @@ import requests
 import re
 import time
 import csv
+import argparse
+import subprocess
+from datetime import datetime
+import os
 
 TRACTATES = [
     "Jerusalem_Talmud_Berakhot",
@@ -46,14 +50,30 @@ SLEEP_SECONDS = 0.01
 
 
 def main():
-    # Prepare CSV output (overwrite any existing file)
-    csv_file = "yerushalmi_word_counts.csv"
+    parser = argparse.ArgumentParser(description="Count Hebrew words in Yerushalmi by reference and write CSV")
+    parser.add_argument("--sleep", type=float, default=SLEEP_SECONDS, help="Seconds to sleep between requests")
+    parser.add_argument("--output", type=str, default="yerushalmi_word_counts.csv", help="CSV output path")
+    parser.add_argument("--auto-commit", action="store_true", help="If set, git add/commit/push the output CSV after a successful run")
+    args = parser.parse_args()
+
+    sleep_seconds = args.sleep
+    csv_file = args.output
+
+    # Ensure output dir exists
     try:
-        import os
+        out_dir = os.path.dirname(csv_file)
+        if out_dir:
+            os.makedirs(out_dir, exist_ok=True)
+    except Exception:
+        pass
+
+    # Overwrite any existing file
+    try:
         if os.path.exists(csv_file):
             os.remove(csv_file)
     except Exception:
         pass
+
     with open(csv_file, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         writer.writerow(["tractate", "chapter", "halakhah", "words"])
@@ -96,7 +116,7 @@ def main():
                             chapter_rows.append([tname, chn, han, count])
                             chapter_total += count
                         total += count
-                        time.sleep(SLEEP_SECONDS)
+                        time.sleep(sleep_seconds)
                     if chapter_total > 0:
                         for row in chapter_rows:
                             writer.writerow(row)
@@ -125,7 +145,7 @@ def main():
                             chapter_rows.append([tname, chn, han, count])
                             chapter_total += count
                         total += count
-                        time.sleep(SLEEP_SECONDS)
+                        time.sleep(sleep_seconds)
                     if chapter_total > 0:
                         for row in chapter_rows:
                             writer.writerow(row)
