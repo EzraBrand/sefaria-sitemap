@@ -6,6 +6,7 @@ import csv
 TRACTATES = [
     "Jerusalem_Talmud_Berakhot",
     "Jerusalem_Talmud_Peah",
+    "Jerusalem_Talmud_Sanhedrin",
 ]
 API_TEXTS = "https://www.sefaria.org/api/texts"
 
@@ -90,6 +91,8 @@ def main():
                 else:
                     print(f"Skipping chapter {ch} for {tractate} (0 words)")
             print(f"Total Hebrew words in {tractate}: {total}")
+            # write a per-tractate summary row (tractate, total_words)
+            writer.writerow([tractate, "", "", total])
     print(f"CSV written to {csv_file}")
 
 if __name__ == "__main__":
