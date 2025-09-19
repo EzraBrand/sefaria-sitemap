@@ -1,0 +1,149 @@
+{
+  "Jerusalem_Talmud_Berakhot": {
+    "chapters": 9,
+    "halakhot_per_chapter": [
+      6,
+      9,
+      6,
+      6,
+      5,
+      8,
+      5,
+      8,
+      5
+    ]
+  },
+  "Jerusalem_Talmud_Peah": {
+    "chapters": 8,
+    "halakhot_per_chapter": [
+      5,
+      5,
+      8,
+      7,
+      7,
+      8,
+      7,
+      8
+    ]
+  },
+  "Jerusalem_Talmud_Sanhedrin": {
+    "chapters": 11,
+    "halakhot_per_chapter": [
+      4,
+      6,
+      12,
+      9,
+      5,
+      10,
+      13,
+      9,
+      7,
+      8,
+      6
+    ]
+  },
+  "Jerusalem_Talmud_Sheviit": {
+    "chapters": 10,
+    "halakhot_per_chapter": [
+      6,
+      7,
+      7,
+      8,
+      4,
+      4,
+      2,
+      8,
+      6,
+      4
+    ]
+  },
+  "Jerusalem_Talmud_Moed_Katan": {
+    "chapters": 3,
+    "halakhot_per_chapter": [
+      10,
+      5,
+      9
+    ]
+  },
+  "Jerusalem_Talmud_Horayot": {
+    "chapters": 3,
+    "halakhot_per_chapter": [
+      8,
+      7,
+      5
+    ]
+  },
+  "Jerusalem_Talmud_Kiddushin": {
+    "chapters": 4,
+    "halakhot_per_chapter": [
+      9,
+      9,
+      13,
+      12
+    ]
+  },
+  "Jerusalem_Talmud_Bikkurim": {
+    "chapters": 3,
+    "halakhot_per_chapter": [
+      9,
+      6,
+      6
+    ]
+  },
+  "Jerusalem_Talmud_Demai": {
+    "chapters": 7,
+    "halakhot_per_chapter": [
+      4,
+      5,
+      6,
+      5,
+      8,
+      8,
+      8
+    ]
+  },
+  "Jerusalem_Talmud_Kilayim": {
+    "chapters": 9,
+    "halakhot_per_chapter": [
+      9,
+      8,
+      6,
+      6,
+      7,
+      4,
+      6,
+      4,
+      6
+    ]
+  },
+  "Jerusalem_Talmud_Terumot": {
+    "chapters": 11,
+    "halakhot_per_chapter": [
+      5,
+      3,
+      5,
+      8,
+      3,
+      3,
+      3,
+      4,
+      3,
+      6,
+      5
+    ]
+  },
+  "Jerusalem_Talmud_Maaser": {
+    "chapters": 0,
+    "halakhot_per_chapter": []
+  },
+  "Jerusalem_Talmud_Maaser_Sheni": {
+    "chapters": 5,
+    "halakhot_per_chapter": [
+      3,
+      4,
+      6,
+      6,
+      5
+    ]
+  }
+}
