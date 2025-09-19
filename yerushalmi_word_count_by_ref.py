@@ -1,9 +1,12 @@
 import requests
 import re
 import time
+import csv
 
-TRACTATE = "Jerusalem_Talmud_Berakhot"
-API_INDEX = f"https://www.sefaria.org/api/index/{TRACTATE}"
+TRACTATES = [
+    "Jerusalem_Talmud_Berakhot",
+    "Jerusalem_Talmud_Peah",
+]
 API_TEXTS = "https://www.sefaria.org/api/texts"
 
 def count_hebrew_words(text):
@@ -18,37 +21,59 @@ def flatten_text(obj):
         return obj
     return ""
 
-def get_structure():
-    resp = requests.get(API_INDEX, timeout=30)
+def get_structure(tractate):
+    url = f"https://www.sefaria.org/api/index/{tractate}"
+    resp = requests.get(url, timeout=30)
     data = resp.json()
     # Get lengths per depth: [chapters, halakhot, segments]
     lengths = data.get("schema", {}).get("lengths", [0, 0, 0])
     return lengths
 
-def get_ref_word_count(chapter, halakhah):
-    ref = f"{TRACTATE}.{chapter}.{halakhah}"
+def get_ref_word_count(tractate, chapter, halakhah):
+    ref = f"{tractate}.{chapter}.{halakhah}"
     url = f"{API_TEXTS}/{ref}?lang=he"
     try:
         resp = requests.get(url, timeout=20)
         data = resp.json()
         hebrew_text = flatten_text(data.get("he", []))
-        return count_hebrew_words(hebrew_text)
+        return ref, count_hebrew_words(hebrew_text)
     except Exception as e:
-        print(f"Error fetching {ref}: {e}")
-        return 0
+        return ref, 0
+
+SLEEP_SECONDS = 0.05
+
 
 def main():
-    print(f"Counting Hebrew words for {TRACTATE} by reference...")
-    chapters, halakhot, _ = get_structure()
-    total = 0
-    for ch in range(1, chapters+1):
-        for ha in range(1, halakhot+1):
-            count = get_ref_word_count(ch, ha)
-            if count > 0:
-                print(f"{TRACTATE}.{ch}.{ha}: {count} words")
-            total += count
-            time.sleep(0.2)  # Be gentle to API
-    print(f"Total Hebrew words in {TRACTATE}: {total}")
+    # Prepare CSV output
+    csv_file = "yerushalmi_word_counts.csv"
+    with open(csv_file, "w", newline='', encoding='utf-8') as f:
+        writer = csv.writer(f)
+        writer.writerow(["tractate", "chapter", "halakhah", "words"])
+
+        for tractate in TRACTATES:
+            print(f"\nCounting Hebrew words for {tractate} by reference (sequential)...")
+            chapters, halakhot, _ = get_structure(tractate)
+            total = 0
+            for ch in range(1, chapters+1):
+                for ha in range(1, halakhot+1):
+                    ref, count = get_ref_word_count(tractate, ch, ha)
+                    # parse ref into parts
+                    parts = ref.split('.')
+                    if len(parts) >= 3:
+                        tname = '.'.join(parts[:-2])
+                        chn = parts[-2]
+                        han = parts[-1]
+                    else:
+                        tname = parts[0]
+                        chn = ''
+                        han = ''
+                    if count > 0:
+                        print(f"{ref}: {count} words")
+                    writer.writerow([tname, chn, han, count])
+                    total += count
+                    time.sleep(SLEEP_SECONDS)
+            print(f"Total Hebrew words in {tractate}: {total}")
+    print(f"CSV written to {csv_file}")
 
 if __name__ == "__main__":
     main()
