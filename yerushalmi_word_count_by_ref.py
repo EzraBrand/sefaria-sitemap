@@ -79,9 +79,9 @@ def main():
                         han = ''
                     if count > 0:
                         print(f"{ref}: {count} words")
-                    # buffer chapter rows and only write them if chapter_total > 0
-                    chapter_rows.append([tname, chn, han, count])
-                    chapter_total += count
+                        # buffer chapter rows and only write them if chapter_total > 0
+                        chapter_rows.append([tname, chn, han, count])
+                        chapter_total += count
                     total += count
                     time.sleep(SLEEP_SECONDS)
                 if chapter_total > 0:
