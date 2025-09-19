@@ -40,12 +40,18 @@ def get_ref_word_count(tractate, chapter, halakhah):
     except Exception as e:
         return ref, 0
 
-SLEEP_SECONDS = 0.05
+SLEEP_SECONDS = 0.01
 
 
 def main():
-    # Prepare CSV output
+    # Prepare CSV output (overwrite any existing file)
     csv_file = "yerushalmi_word_counts.csv"
+    try:
+        import os
+        if os.path.exists(csv_file):
+            os.remove(csv_file)
+    except Exception:
+        pass
     with open(csv_file, "w", newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         writer.writerow(["tractate", "chapter", "halakhah", "words"])
