@@ -8,6 +8,7 @@ TRACTATES = [
     "Jerusalem_Talmud_Peah",
     "Jerusalem_Talmud_Sanhedrin",
 ]
+SCHEMA_FILE = "yerushalmi_schema.json"
 API_TEXTS = "https://www.sefaria.org/api/texts"
 
 def count_hebrew_words(text):
@@ -57,39 +58,80 @@ def main():
         writer = csv.writer(f)
         writer.writerow(["tractate", "chapter", "halakhah", "words"])
 
-        for tractate in TRACTATES:
+        # Try loading schema file so we can iterate exactly
+        try:
+            import json
+            with open(SCHEMA_FILE, 'r', encoding='utf-8') as fh:
+                schema = json.load(fh)
+            tractates = list(schema.keys())
+            print(f"Loaded {len(tractates)} tractates from {SCHEMA_FILE}")
+        except Exception:
+            schema = {}
+            tractates = TRACTATES
+
+        for tractate in tractates:
             print(f"\nCounting Hebrew words for {tractate} by reference (sequential)...")
-            chapters, halakhot, _ = get_structure(tractate)
-            # Cap chapters at 30 as requested
-            chapters = min(chapters, 30)
+            tractate_schema = schema.get(tractate)
             total = 0
-            for ch in range(1, chapters+1):
-                chapter_rows = []
-                chapter_total = 0
-                for ha in range(1, halakhot+1):
-                    ref, count = get_ref_word_count(tractate, ch, ha)
-                    # parse ref into parts
-                    parts = ref.split('.')
-                    if len(parts) >= 3:
-                        tname = '.'.join(parts[:-2])
-                        chn = parts[-2]
-                        han = parts[-1]
+
+            if tractate_schema:
+                halakhot_list = tractate_schema.get('halakhot_per_chapter', [])
+                chapters = len(halakhot_list)
+                for ch_index, ha_count in enumerate(halakhot_list, start=1):
+                    chapter_rows = []
+                    chapter_total = 0
+                    for ha in range(1, ha_count+1):
+                        ref, count = get_ref_word_count(tractate, ch_index, ha)
+                        parts = ref.split('.')
+                        if len(parts) >= 3:
+                            tname = '.'.join(parts[:-2])
+                            chn = parts[-2]
+                            han = parts[-1]
+                        else:
+                            tname = parts[0]
+                            chn = ''
+                            han = ''
+                        if count > 0:
+                            print(f"{ref}: {count} words")
+                            chapter_rows.append([tname, chn, han, count])
+                            chapter_total += count
+                        total += count
+                        time.sleep(SLEEP_SECONDS)
+                    if chapter_total > 0:
+                        for row in chapter_rows:
+                            writer.writerow(row)
                     else:
-                        tname = parts[0]
-                        chn = ''
-                        han = ''
-                    if count > 0:
-                        print(f"{ref}: {count} words")
-                        # buffer chapter rows and only write them if chapter_total > 0
-                        chapter_rows.append([tname, chn, han, count])
-                        chapter_total += count
-                    total += count
-                    time.sleep(SLEEP_SECONDS)
-                if chapter_total > 0:
-                    for row in chapter_rows:
-                        writer.writerow(row)
-                else:
-                    print(f"Skipping chapter {ch} for {tractate} (0 words)")
+                        print(f"Skipping chapter {ch_index} for {tractate} (0 words)")
+            else:
+                # fallback to old behavior (index-based probing with cap)
+                chapters, halakhot, _ = get_structure(tractate)
+                chapters = min(chapters, 30)
+                for ch in range(1, chapters+1):
+                    chapter_rows = []
+                    chapter_total = 0
+                    for ha in range(1, halakhot+1):
+                        ref, count = get_ref_word_count(tractate, ch, ha)
+                        parts = ref.split('.')
+                        if len(parts) >= 3:
+                            tname = '.'.join(parts[:-2])
+                            chn = parts[-2]
+                            han = parts[-1]
+                        else:
+                            tname = parts[0]
+                            chn = ''
+                            han = ''
+                        if count > 0:
+                            print(f"{ref}: {count} words")
+                            chapter_rows.append([tname, chn, han, count])
+                            chapter_total += count
+                        total += count
+                        time.sleep(SLEEP_SECONDS)
+                    if chapter_total > 0:
+                        for row in chapter_rows:
+                            writer.writerow(row)
+                    else:
+                        print(f"Skipping chapter {ch} for {tractate} (0 words)")
+
             print(f"Total Hebrew words in {tractate}: {total}")
             # write a per-tractate summary row (tractate, total_words)
             writer.writerow([tractate, "", "", total])
