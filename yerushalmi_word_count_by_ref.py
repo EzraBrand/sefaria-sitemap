@@ -53,8 +53,12 @@ def main():
         for tractate in TRACTATES:
             print(f"\nCounting Hebrew words for {tractate} by reference (sequential)...")
             chapters, halakhot, _ = get_structure(tractate)
+            # Cap chapters at 30 as requested
+            chapters = min(chapters, 30)
             total = 0
             for ch in range(1, chapters+1):
+                chapter_rows = []
+                chapter_total = 0
                 for ha in range(1, halakhot+1):
                     ref, count = get_ref_word_count(tractate, ch, ha)
                     # parse ref into parts
@@ -69,9 +73,16 @@ def main():
                         han = ''
                     if count > 0:
                         print(f"{ref}: {count} words")
-                    writer.writerow([tname, chn, han, count])
+                    # buffer chapter rows and only write them if chapter_total > 0
+                    chapter_rows.append([tname, chn, han, count])
+                    chapter_total += count
                     total += count
                     time.sleep(SLEEP_SECONDS)
+                if chapter_total > 0:
+                    for row in chapter_rows:
+                        writer.writerow(row)
+                else:
+                    print(f"Skipping chapter {ch} for {tractate} (0 words)")
             print(f"Total Hebrew words in {tractate}: {total}")
     print(f"CSV written to {csv_file}")
 
